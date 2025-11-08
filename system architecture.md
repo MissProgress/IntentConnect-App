@@ -1,14 +1,14 @@
 # System Architecture: IntentConnect
 
 The IntentConnect application requires high reliability for reminders and low latency for
-database lookups (for notes and contact groups). A lightweight,  mobile-first severless 
+database lookups (for notes and contact groups). A lightweight, mobile-first severless 
 architecture is proposed for speed and cost-efficient.
 
 ## 1. Core Technology Stack
 
 | Component | Technology | Rationale |
 | :--- | :--- | :--- |
-| **Frontend (Mobile App)** | React Native / Expo | Allows a singlecodebase to deploy efficiently to both iOS and iOS and Android,  accelerating development. |
+| **Frontend (Mobile App)** | React Native / Expo | Allows a single code base to deploy efficiently to both iOS and iOS and Android, accelerating development. |
 | **Backend / API** | Node.js (Serverless Functions like AWS Lambda/Google Cloud Function) | Cost-effective and highly scalable for handling api requests and processing scheduled reminders without managing dedicated servers. |
 | **Database** | NoSQL (e.g., MongoDB / Google Cloud Firestore) | Optimized for the flexible, document-based data structure required for storing user contacts, call notes, and activity logs. Offers high read/write speed for mobile access. |
 | **Scheduling Engine** | Dedicated Cron Service (e.g., AWS EventBridge Scheduler) | Handles the high-volume, precision-timing required for delivering daily/weekly/monthly reminders to the correct users globally. |
