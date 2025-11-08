@@ -32,6 +32,37 @@ The core data is stored in simple collections:
 4. **Notification:** The Engine triggers a third-party **Push Notification Service** (e.g., Firebase Cloud Messaging) to send a notification to the user's mobile device.
 5. **User Interaction:** When the user taps the reminder, the mobile app retrieves the latest **In-Call Notes** for that contact from the Database *before* presenting the "Dial" button.
 
+### Architecture Flow Diagram (ASCII)
+ ```
++-------------------+ HTTPS +------------------+
+| Mobile Client | <----------------> | Serverless API |
+| (React Native) | (Read/Write Data) | (Node.js/Lambda) |
++-------------------+ | +--------^---------+
+                            | |
+                            | v
+                            | +---------------------+
+                            | | NoSQL Database |
+                            | | (Contacts, Notes) |
+                            | +---------------------+
+                            | ^
+                            | 1. Reminder Due |
+                            | |
+                            | +---------------------+
+                            +---------->| Scheduling Engine |
+                                        | (Cron Service) |
+                                        +----------+----------+
+                                                   |
+                                                   v
+                                        +---------------------+
+                                        | Push Notif. Service |
+                                        | (FCM/APNs) |
+                                        +----------+----------+
+                                                   |
+                                                   v
+                                        +---------------------+
+                                        | Mobile Client |
+                                        +---------------------+
+```
 ---
 
 ## 3. Technical Feasibility & Rationale
